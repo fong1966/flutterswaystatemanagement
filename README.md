@@ -1,4 +1,7 @@
 # flutterswaystatemanagement
+[Flutter’s Way State Management — No Packages — Pure Flutter/Dart](https://medium.com/@JediPixels/flutters-way-state-management-929588a42541)
+
+by [Marco Napoli](https://medium.com/@JediPixels?source=post_page-----929588a42541--------------------------------)
 
 A new Flutter project.
 
