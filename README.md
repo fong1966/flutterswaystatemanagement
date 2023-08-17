@@ -3,7 +3,6 @@
 
 by [Marco Napoli](https://medium.com/@JediPixels?source=post_page-----929588a42541--------------------------------)
 
-A new Flutter project.
 
 ## Getting Started
 
