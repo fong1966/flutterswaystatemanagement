@@ -3,27 +3,26 @@ import 'package:flutter/material.dart';
 class Log {
   String logHistory;
 
-  Log({this.logHistory});
+  Log({required this.logHistory});
 }
 
 class LogProvider extends InheritedWidget {
   final Log log;
-  final Color color;
+  final Color? color;
 
   const LogProvider({
-    Key key,
-    this.log,
+    super.key,
+    required this.log,
     this.color,
-    @required Widget child,
-  })  : assert(child != null),
-        super(key: key, child: child);
+    required Widget child,
+  }) : super(child: child);
 
-  static LogProvider of(BuildContext context) {
+  static LogProvider? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<LogProvider>();
   }
 
   @override
-  bool updateShouldNotify(LogProvider old) {
-    return log != old.log;
+  bool updateShouldNotify(LogProvider oldWidget) {
+    return log != oldWidget.log;
   }
 }

@@ -4,8 +4,10 @@ import 'package:flutterswaystatemanagement/pages/inherited_widget_bottom_page.da
 import 'package:flutterswaystatemanagement/pages/inherited_widget_top_page.dart';
 
 class InheritedWidgetPage extends StatefulWidget {
+  const InheritedWidgetPage({super.key});
+
   @override
-  _InheritedWidgetPageState createState() => _InheritedWidgetPageState();
+  State<InheritedWidgetPage> createState() => _InheritedWidgetPageState();
 }
 
 class _InheritedWidgetPageState extends State<InheritedWidgetPage> {
@@ -21,13 +23,13 @@ class _InheritedWidgetPageState extends State<InheritedWidgetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('InheritedWidget'),
+        title: const Text('InheritedWidget'),
         backgroundColor: Colors.lightGreen,
         actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.add),
-            label: Text('Add Ideas'),
-            textColor: Colors.white,
+          TextButton.icon(
+            icon: const Icon(Icons.add),
+            label: const Text('Add Ideas'),
+            style: TextButton.styleFrom(foregroundColor: Colors.white),
             onPressed: _increaseNumberOfIdeas,
           ),
         ],
@@ -40,7 +42,7 @@ class _InheritedWidgetPageState extends State<InheritedWidgetPage> {
               child: InheritedWidgetPageProvider(
                 numberOfIdeas: _numberOfIdeas,
                 increaseNumberOfIdeas: _increaseNumberOfIdeas,
-                child: Center(
+                child: const Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -67,9 +69,9 @@ class ParentWidget extends StatelessWidget {
   final int _numberOfIdeas;
 
   const ParentWidget({
-    Key key,
-    @required int numberOfIdeas,
-  }) : _numberOfIdeas = numberOfIdeas, super(key: key);
+    super.key,
+    required int numberOfIdeas,
+  }) : _numberOfIdeas = numberOfIdeas;
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +81,11 @@ class ParentWidget extends StatelessWidget {
       width: double.infinity,
       child: Column(
         children: <Widget>[
-          SizedBox(height: 16.0),
-          Text('PARENT WIDGET'),
+          const SizedBox(height: 16.0),
+          const Text('PARENT WIDGET'),
           Text(
             '$_numberOfIdeas',
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontSize: 48.0,
                 fontWeight: FontWeight.bold,
                 color: Colors.blueGrey.shade800),

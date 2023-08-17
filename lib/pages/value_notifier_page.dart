@@ -3,25 +3,27 @@ import 'package:flutterswaystatemanagement/classes/idea_type.dart';
 import 'package:flutterswaystatemanagement/classes/ideas_value_notifier.dart';
 import 'package:flutterswaystatemanagement/classes/ideas_value_notifier_provider.dart';
 import 'package:flutterswaystatemanagement/classes/log_provider.dart';
-import 'LogHistory.dart';
+import 'log_history.dart';
 
 class ValueNotifierPage extends StatefulWidget {
+  const ValueNotifierPage({super.key});
+
   @override
-  _ValueNotifierPageState createState() => _ValueNotifierPageState();
+  State<ValueNotifierPage> createState() => _ValueNotifierPageState();
 }
 
 class _ValueNotifierPageState extends State<ValueNotifierPage> {
-  IdeasValueNotifier _ideasValueNotifier;
-  Log _log;
+  late IdeasValueNotifier _ideasValueNotifier;
+  late Log _log;
 
   @override
   void initState() {
     super.initState();
     _ideasValueNotifier = IdeasValueNotifier(
-        value: IdeaCount(
-            numberOfIdeas: ValueNotifier<int>(0),
-            numberOfPossibilities: ValueNotifier<int>(0),
-        ),
+      value: IdeaCount(
+        numberOfIdeas: ValueNotifier<int>(0),
+        numberOfPossibilities: ValueNotifier<int>(0),
+      ),
     );
     _log = Log(logHistory: '');
   }
@@ -36,21 +38,20 @@ class _ValueNotifierPageState extends State<ValueNotifierPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ValueNotifier'),
+        title: const Text('ValueNotifier'),
         backgroundColor: Colors.orange,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.history),
+            icon: const Icon(Icons.history),
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (BuildContext context) {
-                    return LogProvider(
-                      log: _log,
-                      color: Colors.orange,
-                      child: LogHistory(),
-                    );
-                  })
-              );
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                return LogProvider(
+                  log: _log,
+                  color: Colors.orange,
+                  child: const LogHistory(),
+                );
+              }));
             },
           )
         ],
@@ -64,7 +65,8 @@ class _ValueNotifierPageState extends State<ValueNotifierPage> {
               children: <Widget>[
                 ValueListenableBuilder(
                   valueListenable: _ideasValueNotifier.value.numberOfIdeas,
-                  builder: (BuildContext context, int value, Widget child) {
+                  builder: (BuildContext context, int value, Widget? child) {
+                    print('$value!');
                     return InkWell(
                       child: Column(
                         children: <Widget>[
@@ -81,14 +83,14 @@ class _ValueNotifierPageState extends State<ValueNotifierPage> {
                                 child: LogProvider(
                                   log: _log,
                                   child: IdeasValueNotifierProvider(
-                                      ideasValueNotifier: _ideasValueNotifier,
-                                      child: NumberOfIdeas(),
+                                    ideasValueNotifier: _ideasValueNotifier,
+                                    child: const NumberOfIdeas(),
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                          Text('Ideas'),
+                          const Text('Ideas'),
                         ],
                       ),
                       onTap: () {
@@ -97,10 +99,10 @@ class _ValueNotifierPageState extends State<ValueNotifierPage> {
                     );
                   },
                 ),
-
                 ValueListenableBuilder(
-                  valueListenable: _ideasValueNotifier.value.numberOfPossibilities,
-                  builder: (BuildContext context, int value, Widget child) {
+                  valueListenable:
+                      _ideasValueNotifier.value.numberOfPossibilities,
+                  builder: (BuildContext context, int value, Widget? child) {
                     return InkWell(
                       child: Column(
                         children: <Widget>[
@@ -115,16 +117,16 @@ class _ValueNotifierPageState extends State<ValueNotifierPage> {
                               Positioned(
                                 bottom: 62.0,
                                 child: LogProvider(
-                                    log: _log,
-                                    child: IdeasValueNotifierProvider(
-                                        ideasValueNotifier: _ideasValueNotifier,
-                                        child: NumberOfPossibilities(),
-                                    ),
+                                  log: _log,
+                                  child: IdeasValueNotifierProvider(
+                                    ideasValueNotifier: _ideasValueNotifier,
+                                    child: const NumberOfPossibilities(),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                          Text('Possibilities'),
+                          const Text('Possibilities'),
                         ],
                       ),
                       onTap: () {
@@ -143,20 +145,23 @@ class _ValueNotifierPageState extends State<ValueNotifierPage> {
 }
 
 class NumberOfIdeas extends StatelessWidget {
-  final IdeaType ideaType;
+  final IdeaType? ideaType;
 
-  const NumberOfIdeas({Key key, this.ideaType}) : super(key: key);
+  const NumberOfIdeas({super.key, this.ideaType});
 
   @override
   Widget build(BuildContext context) {
-    final Log _log = LogProvider.of(context).log;
-    final IdeasValueNotifier _ideasValueNotifier = IdeasValueNotifierProvider.of(context).ideasValueNotifier;
-    _log.logHistory += '\n${IdeaType.ideas}: ${_ideasValueNotifier.value.numberOfIdeas.value}';
-    print('BUILD: ${IdeaType.ideas}: ${_ideasValueNotifier.value.numberOfIdeas.value}');
+    final Log log = LogProvider.of(context)!.log;
+    final IdeasValueNotifier ideasValueNotifier =
+        IdeasValueNotifierProvider.of(context)!.ideasValueNotifier;
+    log.logHistory +=
+        '\n${IdeaType.ideas}: ${ideasValueNotifier.value.numberOfIdeas.value}';
+    print(
+        'BUILD: ${IdeaType.ideas}: ${ideasValueNotifier.value.numberOfIdeas.value}');
 
     return Text(
-      '${_ideasValueNotifier.value.numberOfIdeas.value}',
-      style: Theme.of(context).textTheme.bodyText1.copyWith(
+      '${ideasValueNotifier.value.numberOfIdeas.value}',
+      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
           fontSize: 48.0,
           fontWeight: FontWeight.bold,
           color: Colors.blueGrey.shade800),
@@ -165,20 +170,23 @@ class NumberOfIdeas extends StatelessWidget {
 }
 
 class NumberOfPossibilities extends StatelessWidget {
-  final IdeaType ideaType;
+  final IdeaType? ideaType;
 
-  const NumberOfPossibilities({Key key, this.ideaType}) : super(key: key);
+  const NumberOfPossibilities({super.key, this.ideaType});
 
   @override
   Widget build(BuildContext context) {
-    final Log _log = LogProvider.of(context).log;
-    final IdeasValueNotifier _ideasValueNotifier = IdeasValueNotifierProvider.of(context).ideasValueNotifier;
-    _log.logHistory += '\n${IdeaType.possibilities}: ${_ideasValueNotifier.value.numberOfPossibilities.value}';
-    print('BUILD: ${IdeaType.possibilities}: ${_ideasValueNotifier.value.numberOfPossibilities.value}');
+    final Log log = LogProvider.of(context)!.log;
+    final IdeasValueNotifier ideasValueNotifier =
+        IdeasValueNotifierProvider.of(context)!.ideasValueNotifier;
+    log.logHistory +=
+        '\n${IdeaType.possibilities}: ${ideasValueNotifier.value.numberOfPossibilities.value}';
+    print(
+        'BUILD: ${IdeaType.possibilities}: ${ideasValueNotifier.value.numberOfPossibilities.value}');
 
     return Text(
-      '${_ideasValueNotifier.value.numberOfPossibilities.value}',
-      style: Theme.of(context).textTheme.bodyText1.copyWith(
+      '${ideasValueNotifier.value.numberOfPossibilities.value}',
+      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
           fontSize: 48.0,
           fontWeight: FontWeight.bold,
           color: Colors.blueGrey.shade800),

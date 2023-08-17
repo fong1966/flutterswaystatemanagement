@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutterswaystatemanagement/classes/idea_type.dart';
 import 'package:flutterswaystatemanagement/classes/ideas_inherited_model.dart';
 import 'package:flutterswaystatemanagement/classes/log_provider.dart';
-import 'LogHistory.dart';
+import 'log_history.dart';
 
 class InheritedModelPage extends StatefulWidget {
+  const InheritedModelPage({super.key});
+
   @override
-  _InheritedModelPageState createState() => _InheritedModelPageState();
+  State<InheritedModelPage> createState() => _InheritedModelPageState();
 }
 
 class _InheritedModelPageState extends State<InheritedModelPage> {
   int _numberOfIdeas = 0;
   int _numberOfPossibilities = 0;
-  Log _log;
+  late Log _log;
 
   @override
   void initState() {
@@ -24,21 +26,20 @@ class _InheritedModelPageState extends State<InheritedModelPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inherited Model'),
+        title: const Text('Inherited Model'),
         backgroundColor: Colors.blueGrey,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.history),
+            icon: const Icon(Icons.history),
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (BuildContext context) {
-                    return LogProvider(
-                      log: _log,
-                      color: Colors.blueGrey,
-                      child: LogHistory(),
-                    );
-                  })
-              );
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                return LogProvider(
+                  log: _log,
+                  color: Colors.blueGrey,
+                  child: const LogHistory(),
+                );
+              }));
             },
           )
         ],
@@ -76,7 +77,7 @@ class _InheritedModelPageState extends State<InheritedModelPage> {
                             ),
                           ],
                         ),
-                        Text('Ideas'),
+                        const Text('Ideas'),
                       ],
                     ),
                     onTap: () {
@@ -85,7 +86,6 @@ class _InheritedModelPageState extends State<InheritedModelPage> {
                       });
                     },
                   ),
-
                   InkWell(
                     child: Column(
                       children: <Widget>[
@@ -108,7 +108,7 @@ class _InheritedModelPageState extends State<InheritedModelPage> {
                             ),
                           ],
                         ),
-                        Text('Possibilities')
+                        const Text('Possibilities')
                       ],
                     ),
                     onTap: () {
@@ -130,18 +130,19 @@ class _InheritedModelPageState extends State<InheritedModelPage> {
 class MyNumberOfIdeas extends StatelessWidget {
   final IdeaType ideaType;
 
-  const MyNumberOfIdeas({Key key, this.ideaType}) : super(key: key);
+  const MyNumberOfIdeas({super.key, required this.ideaType});
 
   @override
   Widget build(BuildContext context) {
-    final IdeasInheritedModel _ideasTypeIdea = IdeasInheritedModel.of(context, aspect: ideaType);
-    final Log _log = LogProvider.of(context).log;
-    _log.logHistory += '\n$ideaType: ${_ideasTypeIdea.numberOfIdeas}';
-    print('BUILD: $ideaType: ${_ideasTypeIdea.numberOfIdeas}');
+    final IdeasInheritedModel? ideasTypeIdea =
+        IdeasInheritedModel.of(context, aspect: ideaType);
+    final Log log = LogProvider.of(context)!.log;
+    log.logHistory += '\n$ideaType: ${ideasTypeIdea!.numberOfIdeas}';
+    print('BUILD: $ideaType: ${ideasTypeIdea.numberOfIdeas}');
 
     return Text(
-      '${_ideasTypeIdea.numberOfIdeas}',
-      style: Theme.of(context).textTheme.bodyText1.copyWith(
+      '${ideasTypeIdea.numberOfIdeas}',
+      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
           fontSize: 48.0,
           fontWeight: FontWeight.bold,
           color: Colors.blueGrey.shade800),
@@ -152,18 +153,19 @@ class MyNumberOfIdeas extends StatelessWidget {
 class MyNumberOfPossibilities extends StatelessWidget {
   final IdeaType ideaType;
 
-  const MyNumberOfPossibilities({Key key, this.ideaType}) : super(key: key);
+  const MyNumberOfPossibilities({super.key, required this.ideaType});
 
   @override
   Widget build(BuildContext context) {
-    final IdeasInheritedModel _ideasTypeIdea = IdeasInheritedModel.of(context, aspect: ideaType);
-    final Log _log = LogProvider.of(context).log;
-    _log.logHistory += '\n$ideaType: ${_ideasTypeIdea.numberOfPossibilities}';
-    print('BUILD: $ideaType: ${_ideasTypeIdea.numberOfPossibilities}');
+    final IdeasInheritedModel? ideasTypeIdea =
+        IdeasInheritedModel.of(context, aspect: ideaType);
+    final Log log = LogProvider.of(context)!.log;
+    log.logHistory += '\n$ideaType: ${ideasTypeIdea!.numberOfPossibilities}';
+    print('BUILD: $ideaType: ${ideasTypeIdea.numberOfPossibilities}');
 
     return Text(
-      '${_ideasTypeIdea.numberOfPossibilities}',
-      style: Theme.of(context).textTheme.bodyText1.copyWith(
+      '${ideasTypeIdea.numberOfPossibilities}',
+      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
           fontSize: 48.0,
           fontWeight: FontWeight.bold,
           color: Colors.blueGrey.shade800),

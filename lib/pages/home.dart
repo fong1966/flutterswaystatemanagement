@@ -1,28 +1,29 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterswaystatemanagement/pages/inherited_model_page.dart';
 import 'package:flutterswaystatemanagement/pages/inherited_widget_page.dart';
 import 'package:flutterswaystatemanagement/pages/value_notifier_page.dart';
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
-  List _listPages = List();
-  Widget _currentPage;
+  final List<Widget> _listPages = [];
+  late Widget _currentPage;
 
   @override
   void initState() {
     super.initState();
 
     _listPages
-      ..add(InheritedWidgetPage())
-      ..add(InheritedModelPage())
-      ..add(ValueNotifierPage());
-    _currentPage = InheritedWidgetPage();
+      ..add(const InheritedWidgetPage())
+      ..add(const InheritedModelPage())
+      ..add(const ValueNotifierPage());
+    _currentPage = const InheritedWidgetPage();
   }
 
   void _changePage(int selectedIndex) {
@@ -45,18 +46,18 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         selectedItemColor: _selectedColor(_currentIndex),
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.settings_input_hdmi),
-            title: Text('InheritedWidget'),
+            label: 'InheritedWidget',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.lightbulb_outline),
-              title: Text('InheritedModel'),
+            icon: Icon(Icons.lightbulb_outline),
+            label: 'InheritedModel',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.hearing),
-              title: Text('ValueNotifier'),
+            icon: Icon(Icons.hearing),
+            label: 'ValueNotifier',
           ),
         ],
         onTap: _changePage,
@@ -65,4 +66,3 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 }
-

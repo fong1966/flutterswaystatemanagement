@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutterswaystatemanagement/classes/inherited_widget_page_provider.dart';
 
 class InheritedWidgetBottomPage extends StatefulWidget {
+  const InheritedWidgetBottomPage({super.key});
+
   @override
-  _InheritedWidgetBottomPageState createState() => _InheritedWidgetBottomPageState();
+  State<InheritedWidgetBottomPage> createState() =>
+      _InheritedWidgetBottomPageState();
 }
 
 class _InheritedWidgetBottomPageState extends State<InheritedWidgetBottomPage> {
-  InheritedWidgetPageProvider _inheritedWidgetPageProvider;
+  late InheritedWidgetPageProvider _inheritedWidgetPageProvider;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     print('BOTTOM WIDGET: didChangeDependencies');
-    _inheritedWidgetPageProvider = InheritedWidgetPageProvider.of(context);
+    _inheritedWidgetPageProvider = InheritedWidgetPageProvider.of(context)!;
   }
 
   @override
@@ -24,8 +27,9 @@ class _InheritedWidgetBottomPageState extends State<InheritedWidgetBottomPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('BOTTOM CHILD WIDGET'),
+            const Text('BOTTOM CHILD WIDGET'),
             InkWell(
+              onTap: _inheritedWidgetPageProvider.increaseNumberOfIdeas,
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -38,7 +42,7 @@ class _InheritedWidgetBottomPageState extends State<InheritedWidgetBottomPage> {
                     bottom: 84.0,
                     child: Text(
                       '${_inheritedWidgetPageProvider.numberOfIdeas}',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 48.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.blueGrey.shade800),
@@ -46,9 +50,8 @@ class _InheritedWidgetBottomPageState extends State<InheritedWidgetBottomPage> {
                   ),
                 ],
               ),
-              onTap: _inheritedWidgetPageProvider.increaseNumberOfIdeas,
             ),
-            Text('Ideas'),
+            const Text('Ideas'),
           ],
         ),
       ),

@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutterswaystatemanagement/classes/inherited_widget_page_provider.dart';
 
 class InheritedWidgetTopPage extends StatefulWidget {
+  const InheritedWidgetTopPage({super.key});
+
   @override
-  _InheritedWidgetTopPageState createState() => _InheritedWidgetTopPageState();
+  State<InheritedWidgetTopPage> createState() => _InheritedWidgetTopPageState();
 }
 
 class _InheritedWidgetTopPageState extends State<InheritedWidgetTopPage> {
-  InheritedWidgetPageProvider _inheritedWidgetPageProvider;
+  late InheritedWidgetPageProvider _inheritedWidgetPageProvider;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     print('TOP WIDGET: didChangeDependencies');
-    _inheritedWidgetPageProvider = InheritedWidgetPageProvider.of(context);
+    _inheritedWidgetPageProvider = InheritedWidgetPageProvider.of(context)!;
   }
 
   @override
@@ -24,8 +26,9 @@ class _InheritedWidgetTopPageState extends State<InheritedWidgetTopPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('TOP CHILD WIDGET'),
+            const Text('TOP CHILD WIDGET'),
             InkWell(
+              onTap: _inheritedWidgetPageProvider.increaseNumberOfIdeas,
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -38,7 +41,7 @@ class _InheritedWidgetTopPageState extends State<InheritedWidgetTopPage> {
                     bottom: 84.0,
                     child: Text(
                       '${_inheritedWidgetPageProvider.numberOfIdeas}',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 48.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.blueGrey.shade800),
@@ -46,9 +49,8 @@ class _InheritedWidgetTopPageState extends State<InheritedWidgetTopPage> {
                   ),
                 ],
               ),
-              onTap: _inheritedWidgetPageProvider.increaseNumberOfIdeas,
             ),
-            Text('Ideas'),
+            const Text('Ideas'),
           ],
         ),
       ),

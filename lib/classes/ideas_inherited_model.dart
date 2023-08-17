@@ -5,10 +5,16 @@ class IdeasInheritedModel extends InheritedModel<IdeaType> {
   final int numberOfIdeas;
   final int numberOfPossibilities;
 
-  const IdeasInheritedModel({this.numberOfIdeas, this.numberOfPossibilities, Widget child}) : super(child: child);
+  const IdeasInheritedModel(
+      {super.key,
+      required this.numberOfIdeas,
+      required this.numberOfPossibilities,
+      required Widget child})
+      : super(child: child);
 
-  static IdeasInheritedModel of(BuildContext context, {IdeaType aspect}) {
-    return InheritedModel.inheritFrom<IdeasInheritedModel>(context, aspect: aspect);
+  static IdeasInheritedModel? of(BuildContext context, {IdeaType? aspect}) {
+    return InheritedModel.inheritFrom<IdeasInheritedModel>(context,
+        aspect: aspect);
   }
 
   @override
