@@ -14,12 +14,12 @@ class InheritedModelPage extends StatefulWidget {
 class _InheritedModelPageState extends State<InheritedModelPage> {
   int _numberOfIdeas = 0;
   int _numberOfPossibilities = 0;
-  late Log _log;
+  late Log log;
 
   @override
   void initState() {
     super.initState();
-    _log = Log(logHistory: '');
+    log = Log(logHistory: '');
   }
 
   @override
@@ -35,7 +35,7 @@ class _InheritedModelPageState extends State<InheritedModelPage> {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (BuildContext context) {
                 return LogProvider(
-                  log: _log,
+                  log: log,
                   color: Colors.blueGrey,
                   child: const LogHistory(),
                 );
@@ -69,7 +69,7 @@ class _InheritedModelPageState extends State<InheritedModelPage> {
                             Positioned(
                               bottom: 84.0,
                               child: LogProvider(
-                                log: _log,
+                                log: log,
                                 child: const MyNumberOfIdeas(
                                   ideaType: IdeaType.ideas,
                                 ),
@@ -100,7 +100,7 @@ class _InheritedModelPageState extends State<InheritedModelPage> {
                             Positioned(
                               bottom: 62.0,
                               child: LogProvider(
-                                log: _log,
+                                log: log,
                                 child: const MyNumberOfPossibilities(
                                   ideaType: IdeaType.possibilities,
                                 ),
@@ -138,7 +138,7 @@ class MyNumberOfIdeas extends StatelessWidget {
         IdeasInheritedModel.of(context, aspect: ideaType);
     final Log log = LogProvider.of(context)!.log;
     log.logHistory += '\n$ideaType: ${ideasTypeIdea!.numberOfIdeas}';
-    print('BUILD: $ideaType: ${ideasTypeIdea.numberOfIdeas}');
+    debugPrint('BUILD: $ideaType: ${ideasTypeIdea.numberOfIdeas}');
 
     return Text(
       '${ideasTypeIdea.numberOfIdeas}',
@@ -161,7 +161,7 @@ class MyNumberOfPossibilities extends StatelessWidget {
         IdeasInheritedModel.of(context, aspect: ideaType);
     final Log log = LogProvider.of(context)!.log;
     log.logHistory += '\n$ideaType: ${ideasTypeIdea!.numberOfPossibilities}';
-    print('BUILD: $ideaType: ${ideasTypeIdea.numberOfPossibilities}');
+    debugPrint('BUILD: $ideaType: ${ideasTypeIdea.numberOfPossibilities}');
 
     return Text(
       '${ideasTypeIdea.numberOfPossibilities}',

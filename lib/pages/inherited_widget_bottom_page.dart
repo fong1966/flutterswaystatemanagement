@@ -15,7 +15,7 @@ class _InheritedWidgetBottomPageState extends State<InheritedWidgetBottomPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print('BOTTOM WIDGET: didChangeDependencies');
+    debugPrint('BOTTOM WIDGET: didChangeDependencies');
     _inheritedWidgetPageProvider = InheritedWidgetPageProvider.of(context)!;
   }
 

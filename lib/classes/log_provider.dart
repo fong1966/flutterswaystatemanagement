@@ -4,6 +4,16 @@ class Log {
   String logHistory;
 
   Log({required this.logHistory});
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Log &&
+          runtimeType == other.runtimeType &&
+          logHistory == other.logHistory;
+
+  @override
+  int get hashCode => logHistory.hashCode;
 }
 
 class LogProvider extends InheritedWidget {

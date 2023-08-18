@@ -75,7 +75,7 @@ class ParentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('PARENT WIDGET');
+    debugPrint('PARENT WIDGET');
     return Container(
       color: Colors.lightGreen.shade400,
       width: double.infinity,

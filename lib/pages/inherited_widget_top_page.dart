@@ -14,7 +14,7 @@ class _InheritedWidgetTopPageState extends State<InheritedWidgetTopPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print('TOP WIDGET: didChangeDependencies');
+    debugPrint('TOP WIDGET: didChangeDependencies');
     _inheritedWidgetPageProvider = InheritedWidgetPageProvider.of(context)!;
   }
 

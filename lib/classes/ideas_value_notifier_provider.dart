@@ -17,6 +17,6 @@ class IdeasValueNotifierProvider extends InheritedWidget {
 
   @override
   bool updateShouldNotify(IdeasValueNotifierProvider oldWidget) {
-    return ideasValueNotifier == oldWidget.ideasValueNotifier; // Todo
+    return ideasValueNotifier != oldWidget.ideasValueNotifier;
   }
 }
