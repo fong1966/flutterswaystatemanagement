@@ -7,8 +7,8 @@ class IdeasValueNotifierProvider extends InheritedWidget {
   const IdeasValueNotifierProvider({
     super.key,
     required this.ideasValueNotifier,
-    required Widget child,
-  }) : super(child: child);
+    required super.child,
+  });
 
   static IdeasValueNotifierProvider? of(BuildContext context) {
     return context

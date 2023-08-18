@@ -24,8 +24,8 @@ class LogProvider extends InheritedWidget {
     super.key,
     required this.log,
     this.color,
-    required Widget child,
-  }) : super(child: child);
+    required super.child,
+  });
 
   static LogProvider? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<LogProvider>();
